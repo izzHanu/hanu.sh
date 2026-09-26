@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Caveat } from "next/font/google";
 import Script from "next/script";
 import { SiteThemeToggle } from "./_theme-toggle";
 import "./globals.css";
@@ -19,6 +20,13 @@ const jejuMyeongjo = localFont({
   variable: "--font-jeju-myeongjo",
   display: "swap",
   weight: "400",
+});
+
+// Handwritten face for the pencil-sketch footer credit.
+const caveat = Caveat({
+  subsets: ["latin"],
+  variable: "--font-hand",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -52,7 +60,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${generalSans.variable} ${jejuMyeongjo.variable}`}
+      className={`${generalSans.variable} ${jejuMyeongjo.variable} ${caveat.variable}`}
     >
       <head>
         <Script id="theme-init" strategy="beforeInteractive">

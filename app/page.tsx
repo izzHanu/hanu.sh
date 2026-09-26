@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Shell, SectionTitle } from "./_shell";
 import { Pill } from "./_pill";
 import { SiteLogo } from "./_site-logo";
@@ -13,6 +12,23 @@ import {
   YouTubeIcon,
   BriefcaseIcon,
 } from "./_icons";
+import {
+  ChessSketch,
+  SoccerSketch,
+  BrainstormingSketch,
+  BuildingSketch,
+  WalkingSketch,
+  RacketSketch,
+  ListenSketch,
+  HeartSketch,
+  NatureSketch,
+  DreamSketch,
+  MirrorSketch,
+  IntrovertSketch,
+  SearchSketch,
+  ObsessionSketch,
+  GoldenGateSketch,
+} from "./_hobby-sketches";
 import { projects } from "@/lib/projects";
 import { domains } from "@/lib/domains";
 
@@ -46,6 +62,57 @@ const journey = [
     heading: "Solo dev: ButterLemonBot",
     span: "2020 — 2022",
     text: "a Telegram bot built for fun that eventually hit 10k+ users.",
+  },
+];
+
+const achievements = [
+  "been a topper in school. lil annoying cuz i used to ask a lot.",
+  "built my first product @16, did 10k+ users and $1k+ revenue.",
+  "peaked 1700+ at chess (somewhere around 1500-1600 now).",
+  "bought my first car before i got out of school, and some real estate before college.",
+  "did everything you see by self-learning and FAFOing.",
+  "was the only one of my kind in school and college, going against the environment's pull on dreams and career path.",
+];
+
+const hobbies = [
+  { heading: "Chess", Sketch: ChessSketch },
+  { heading: "Soccer", Sketch: SoccerSketch },
+  { heading: "Brainstorming", Sketch: BrainstormingSketch },
+  { heading: "Building", Sketch: BuildingSketch },
+];
+
+type Answer = {
+  text: string;
+  Sketch: (props: { className?: string }) => React.JSX.Element;
+  wide?: boolean;
+  wider?: boolean;
+};
+
+const prompts: { prompt: string; answers: Answer[] }[] = [
+  {
+    prompt: "ideal way to have a first time convo",
+    answers: [
+      { text: "walking", Sketch: WalkingSketch },
+      { text: "racket sports", Sketch: RacketSketch },
+    ],
+  },
+  {
+    prompt: "me deep inside",
+    answers: [
+      { text: "listen more, talk less", Sketch: ListenSketch },
+      { text: "i fall for kind yet smart people", Sketch: HeartSketch },
+      { text: "nature lover", Sketch: NatureSketch },
+      { text: "delusional", Sketch: DreamSketch },
+      { text: "high self esteem", Sketch: MirrorSketch },
+      { text: "introvert", Sketch: IntrovertSketch },
+      { text: "driven by obsession and not discipline", Sketch: ObsessionSketch, wide: true },
+    ],
+  },
+  {
+    prompt: "relationship status",
+    answers: [
+      { text: "single in find of 'her' who understands my world", Sketch: SearchSketch, wide: true, wider: true },
+    ],
   },
 ];
 
@@ -124,7 +191,7 @@ export default function HomePage() {
       <SectionTitle id="about">Stack</SectionTitle>
       <p className="mt-8 ml-3.5 max-w-[58ch] text-base leading-relaxed text-fg/85">
         Fullstack engineer, now an all-rounder. I can design, sell, and run
-        GTM. Rich in creativity, ambition, and hunger.
+        GTM. Rich in taste, creativity, ambition, hunger and problem solving skills.
       </p>
 
       <SectionTitle>Journey</SectionTitle>
@@ -143,6 +210,46 @@ export default function HomePage() {
           </li>
         ))}
       </ol>
+
+      <SectionTitle id="hobbies">Hobbies</SectionTitle>
+      <p className="mt-8 ml-3.5 max-w-[58ch] text-base leading-relaxed text-fg/85">
+        Things I&apos;m never tired of.
+      </p>
+      <ul className="mt-6 ml-3.5 grid max-w-[58ch] grid-cols-2 gap-x-8 gap-y-10">
+        {hobbies.map(({ heading, Sketch }) => (
+          <li key={heading}>
+            <Sketch className="h-36 w-full text-fg/70" />
+            <div className="mt-3 font-serif text-xl">{heading}</div>
+          </li>
+        ))}
+      </ul>
+
+      <SectionTitle id="achievements">Small things I am proud of</SectionTitle>
+      <ul className="mt-8 ml-3.5 flex max-w-[58ch] list-disc flex-col gap-3 pl-5 text-base leading-relaxed text-fg/85 marker:text-fg/40">
+        {achievements.map((a) => (
+          <li key={a}>{a}</li>
+        ))}
+      </ul>
+
+      <SectionTitle id="more">A bit more of me</SectionTitle>
+     
+      <ul className="mt-10 ml-3.5 flex flex-col gap-16">
+        {prompts.map(({ prompt, answers }, i) => (
+          <li key={prompt}>
+            <h3 className="w-fit font-serif text-2xl underline decoration-fg/25 decoration-1 underline-offset-[6px]">
+              {i + 1}. {prompt}
+            </h3>
+            <ol className="mt-6 grid max-w-[480px] grid-cols-2 gap-x-6 gap-y-10">
+              {answers.map(({ text, Sketch, wide, wider }) => (
+                <li key={text} className={`flex flex-col justify-end text-center ${wide ? "col-span-2" : ""}`}>
+                  <Sketch className={`mx-auto block text-fg/70 ${wider ? "h-auto w-full max-w-[460px]" : wide ? "h-auto w-full max-w-[400px]" : "h-auto w-[154px]"}`} />
+                  <p className="mt-1.5 font-serif text-base font-normal leading-snug text-fg/85">{text}</p>
+                </li>
+              ))}
+            </ol>
+          </li>
+        ))}
+      </ul>
 
       <SectionTitle id="domains">Domains</SectionTitle>
 
@@ -168,11 +275,8 @@ export default function HomePage() {
         ))}
       </ul>
 
-      <footer className="mt-16 text-sm text-muted">
-        <Link href="/ui" className="silent-underline">
-          UI
-        </Link>{" "}
-        — components and stuff i created for fun.
+      <footer className="mt-20 -mb-16 sm:-mb-24">
+        <GoldenGateSketch className="block h-auto w-full text-fg/60" />
       </footer>
     </Shell>
   );
