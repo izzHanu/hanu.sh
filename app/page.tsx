@@ -14,6 +14,40 @@ import {
   BriefcaseIcon,
 } from "./_icons";
 import { projects } from "@/lib/projects";
+import { domains } from "@/lib/domains";
+
+const journey = [
+   {
+    heading: "Chef at tiptop",
+    span: " Q4 2026 — present",
+    text: "building all in one distribution os for founders",
+  },
+  {
+    heading: "Solo builder",
+    span: "2026 — 2026-Q4",
+    text: "built dotschool.org, cutefol.io, tpot.cc, onedb.net and more.",
+  },
+  {
+    heading: "Back to CS",
+    span: "2025 — 2026",
+    text: "building cool stuff and learning new things.",
+  },
+  {
+    heading: "Gigs and Agency",
+    span: "2023 — 2024",
+    text: "built dev and marketing agency and quit.",
+  },
+  {
+    heading: "Marketing: web3 and crypto",
+    span: "2022 — 2023",
+    text: "got interest off with coding and started a career in marketing, networking and executing campaigns for different projects with KOLs.",
+  },
+  {
+    heading: "Solo dev: ButterLemonBot",
+    span: "2020 — 2022",
+    text: "a Telegram bot built for fun that eventually hit 10k+ users.",
+  },
+];
 
 export default function HomePage() {
   return (
@@ -30,8 +64,7 @@ export default function HomePage() {
 
       <section className="mt-8 max-w-[58ch] text-base leading-relaxed text-fg/90">
         <p>
-          21 y.o. fullstack eng with design eyes. i build stuff people use. dms are open for work/business.
-        
+          21 y.o. fullstack eng with design eyes. now probably a jack of all trades. currently building <ExternalLink href="https://usetiptop.com">tiptop</ExternalLink> to solve distribution for every builder.
           
         </p>
       </section>
@@ -64,16 +97,16 @@ export default function HomePage() {
         </Pill>
       </nav>
 
-      <SectionTitle>Projects</SectionTitle>
+      <SectionTitle id="projects">Projects</SectionTitle>
 
-      <ul className="mt-8 flex flex-col gap-3 text-lg">
+      <ul className="mt-8 ml-3.5 flex flex-col gap-3 text-lg">
         {projects.map((p) => (
           <li key={p.name}>
             <a
               href={p.href}
               target="_blank"
               rel="noreferrer"
-              className={`silent-underline inline-flex items-center gap-3 font-serif text-2xl leading-tight ${
+              className={`silent-underline flex w-fit items-center gap-3 font-serif text-2xl leading-tight ${
                 p.visibility === "inactive" ? "text-fg/45" : ""
               } ${
                 p.visibility === "closed"
@@ -88,35 +121,59 @@ export default function HomePage() {
         ))}
       </ul>
 
-      <SectionTitle>More</SectionTitle>
+      <SectionTitle id="about">Stack</SectionTitle>
+      <p className="mt-8 ml-3.5 max-w-[58ch] text-base leading-relaxed text-fg/85">
+        Fullstack engineer, now an all-rounder. I can design, sell, and run
+        GTM. Rich in creativity, ambition, and hunger.
+      </p>
 
-      <ul className="mt-6 flex flex-col gap-2 text-base">
-        <li>
-          <Link href="/me" className="silent-underline">
-            About me
-          </Link>{" "}
-          <span className="text-muted">— stack, journey, and how I got here.</span>
-        </li>
-        <li>
-          <Link href="/portfolio" className="silent-underline">
-            Portfolio
-          </Link>{" "}
-          <span className="text-muted">— the apps I&apos;m building right now.</span>
-        </li>
-        <li>
-          <Link href="/apps" className="silent-underline">
-            Domains
-          </Link>{" "}
-          <span className="text-muted">— the domain garden I&apos;m tending.</span>
-        </li>
-        <li>
-          <Link href="/ui" className="silent-underline">
-            UI
-          </Link>{" "}
-          <span className="text-muted">— components and stuff i created for fun.</span>
-        </li>
+      <SectionTitle>Journey</SectionTitle>
+      <ol className="mt-8 ml-3.5 border-l border-line pl-6">
+        {journey.map((j) => (
+          <li key={j.heading} className="relative mb-8 last:mb-0">
+            <span
+              aria-hidden
+              className="absolute -left-[27px] top-2 h-2 w-2 rounded-full bg-fg/60 ring-4 ring-bg"
+            />
+            <div className="flex items-baseline gap-3">
+              <span className="font-serif text-xl">{j.heading}</span>
+              <span className="text-sm text-muted">({j.span})</span>
+            </div>
+            <p className="mt-1 text-sm leading-relaxed text-muted">{j.text}</p>
+          </li>
+        ))}
+      </ol>
+
+      <SectionTitle id="domains">Domains</SectionTitle>
+
+      <p className="mt-8 ml-3.5 max-w-[58ch] text-base leading-relaxed text-fg/85">
+        A small garden of domain names I&apos;ve collected. Some are for future
+        projects, some are just fun. If you want one, ping me on{" "}
+        <ExternalLink href="https://x.com/izzHanu">twitter/x</ExternalLink>.
+      </p>
+
+      <ul className="mt-8 ml-3.5 flex flex-col gap-3">
+        {domains.map((d) => (
+          <li key={d.name}>
+            <a
+              href={d.href}
+              target="_blank"
+              rel="noreferrer"
+              className="silent-underline flex w-fit items-center gap-3 font-serif text-lg"
+            >
+              <SiteLogo src={d.logo} name={d.name} />
+              {d.name}
+            </a>
+          </li>
+        ))}
       </ul>
 
+      <footer className="mt-16 text-sm text-muted">
+        <Link href="/ui" className="silent-underline">
+          UI
+        </Link>{" "}
+        — components and stuff i created for fun.
+      </footer>
     </Shell>
   );
 }
@@ -127,7 +184,7 @@ function ExternalLink({ href, children }: { href: string; children: React.ReactN
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="silent-underline"
+      className="silent-underline text-link"
     >
       {children}
     </a>

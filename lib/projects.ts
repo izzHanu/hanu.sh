@@ -7,11 +7,18 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+
+  {
+    name: "tiptop",
+    href: "https://usetiptop.com",
+    logo: "https://wiral.app/icon.svg",
+    visibility: "active",
+  },
   {
     name: "wiral.app",
     href: "https://wiral.app",
     logo: "https://wiral.app/icon.svg",
-    visibility: "active",
+    visibility: "inactive",
   },
   {
     name: "tpot.cc",

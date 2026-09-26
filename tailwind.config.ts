@@ -32,6 +32,7 @@ export default {
         muted: "rgb(var(--color-muted) / <alpha-value>)",
         line: "rgb(var(--color-line) / <alpha-value>)",
         surface: "rgb(var(--color-surface) / <alpha-value>)",
+        link: "rgb(var(--color-link) / <alpha-value>)",
       },
     },
   },

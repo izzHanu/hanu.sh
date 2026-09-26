@@ -10,12 +10,14 @@ export function Shell({ children }: { children: ReactNode }) {
 
 export function SectionTitle({
   children,
+  id,
 }: {
   children: ReactNode;
+  id?: string;
 }) {
   return (
-    <div className="mt-16">
-      <h2 className="inline-flex items-center rounded-full bg-surface/6 px-4 py-2 font-serif text-[clamp(1.15rem,2.3vw,1.5rem)] font-normal leading-none tracking-[-0.02em] text-fg/95 ring-1 ring-fg/12 [html[data-theme='light']_&]:ring-line">
+    <div className="mt-16 scroll-mt-24" id={id}>
+      <h2 className="pill-3d inline-flex items-center rounded-full px-3.5 py-1.5 font-serif text-[clamp(1rem,2vw,1.25rem)] leading-none tracking-[-0.02em]">
         {children}
       </h2>
     </div>

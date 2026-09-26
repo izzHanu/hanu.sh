@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { DomainFallbackIcon } from "./_icons";
 
 type SiteLogoProps = {
@@ -11,7 +11,16 @@ type SiteLogoProps = {
 
 export function SiteLogo({ src, name, className = "" }: SiteLogoProps) {
   const [hasError, setHasError] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
   const resolvedClassName = `h-4 w-4 shrink-0 rounded-[4px] object-contain ${className}`.trim();
+
+  // A logo that fails before hydration fires its error event before React is
+  // listening, and stays a broken image. Re-setting src replays the load so
+  // onError catches it — the same workaround next/image uses.
+  useEffect(() => {
+    const img = imgRef.current;
+    if (img) img.src = img.src;
+  }, []);
 
   if (!src || hasError) {
     return (
@@ -26,6 +35,7 @@ export function SiteLogo({ src, name, className = "" }: SiteLogoProps) {
 
   return (
     <img
+      ref={imgRef}
       src={src}
       alt={`${name} logo`}
       loading="lazy"

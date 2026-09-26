@@ -12,22 +12,7 @@ function applyTheme(theme: Theme) {
   document.documentElement.dataset.theme = theme;
 }
 
-export function ProfileAvatar() {
-  return (
-    <div className="relative h-11 w-11 shrink-0 select-none overflow-hidden rounded-full ring-1 ring-line">
-      <Image
-        src="/me.png"
-        alt=""
-        fill
-        sizes="44px"
-        draggable={false}
-        className="pointer-events-none select-none object-cover [-webkit-user-drag:none]"
-      />
-    </div>
-  );
-}
-
-function ThemeToggleButton() {
+function useTheme() {
   const [theme, setTheme] = useState<Theme>("light");
 
   useEffect(() => {
@@ -40,6 +25,37 @@ function ThemeToggleButton() {
     applyTheme(nextTheme);
     window.localStorage.setItem(STORAGE_KEY, nextTheme);
   }
+
+  return { theme, toggleTheme };
+}
+
+// The home page hides the floating toggle below, so the avatar is its switch.
+export function ProfileAvatar() {
+  const { theme, toggleTheme } = useTheme();
+  const label = `Switch to ${theme === "dark" ? "light" : "dark"} mode`;
+
+  return (
+    <button
+      type="button"
+      onClick={toggleTheme}
+      aria-label={label}
+      title={label}
+      className="relative h-11 w-11 shrink-0 select-none overflow-hidden rounded-full ring-1 ring-line transition-transform duration-200 hover:scale-[1.03] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fg/20 focus-visible:ring-offset-2 focus-visible:ring-offset-bg motion-reduce:transition-none"
+    >
+      <Image
+        src="/me.png"
+        alt=""
+        fill
+        sizes="44px"
+        draggable={false}
+        className="pointer-events-none select-none object-cover [-webkit-user-drag:none]"
+      />
+    </button>
+  );
+}
+
+function ThemeToggleButton() {
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <button
